@@ -5,6 +5,8 @@ RUN apt-get update && \
     python-setuptools \
     python-dev \
     gcc \
+    libffi-dev \
+    libssl-dev \
     git
 RUN easy_install pip
 RUN pip install ansible==2.0.0.2
