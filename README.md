@@ -20,9 +20,9 @@ The `solita/ansible-ssh` base image contains a user called `ansible`, but does n
 
 ## Running
 
-This image is based on [`solita/ubuntu-systemd-ssh`](https://hub.docker.com/r/solita/ubuntu-systemd/), so you need to add a couple of flags to the `docker run` command to make `systemd` play nice with Docker. Additionally you should forward the SSH port `22` to some port on the Docker host. Here's a full command line for starting a container from `YOUR_IMAGE` with the SSH server's port forwarded to `2222` on the Docker host.
+See the sections [Configuring the Docker host](https://github.com/solita/docker-systemd/tree/master#configuring-the-docker-host) and [Running](https://github.com/solita/docker-systemd/tree/master#running) in the README of [solita/ubuntu-systemd](https://github.com/solita/docker-systemd/tree/master), on which this image is based.
 
-    docker run -d -p 22:2222 --stop-signal=SIGRTMIN+3 --tmpfs /run --tmpfs /run/lock -v /sys/fs/cgroup:/sys/fs/cgroup:ro YOUR_IMAGE
+Additionally you should forward the container's SSH port 22 to some port, e.g. 2222, on the Docker host. To do that, add the option `-p 2222:22` to your `docker create` or `docker run` command.
 
 ## Connecting to the container
 
@@ -37,7 +37,7 @@ Assuming your Docker host is `localhost` and you've forwarded the container's po
       -p 2222 \
       ansible@localhost
 
-The `-o` switches disable host key checking. Without them, SSH will refuse to connect when you use the port `2222` for another container with a different host key. **You should only disable host key checking when there is no chance of a man-in-the-middle attack** (e.g. when you're connecting to a container running on the same physical host)!
+The `-o` switches disable host key checking. Without them, SSH will refuse to connect when you use the port `2222` for another container with a different host key. **You should only disable host key checking when there is no chance of a man-in-the-middle attack** (i.e. only when you're connecting to a container running on the same physical host)!
 
 The `-A` switch enables agent forwarding.
 
