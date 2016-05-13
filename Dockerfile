@@ -9,7 +9,7 @@ RUN apt-get update && \
     libssl-dev \
     git
 RUN easy_install pip
-RUN pip install ansible==2.0.0.2
+RUN pip install ansible==2.0.2.0
 
 RUN useradd -m ansible -s /bin/bash
 RUN mkdir /home/ansible/.ssh && \
